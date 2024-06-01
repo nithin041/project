@@ -2,6 +2,7 @@ resource "aws_launch_configuration" "app_lc" {
   name          = "app-lc"
   image_id      = var.ami_id
   instance_type = var.instance_type
+  associate_public_ip_address = true
   user_data = <<-EOF
   #!/bin/bash
   yum install httpd -y
@@ -9,8 +10,9 @@ resource "aws_launch_configuration" "app_lc" {
   chkconfig httpd on
   mkdir /var/www/html
   echo 'Hey!! This is my the project of Loadbalancer using terraform!' > /var/www/html/index.html
-EOF
+  EOF
   security_groups = [aws_security_group.asg_sg.id]
+  
 
   lifecycle {
     create_before_destroy = true
