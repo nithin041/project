@@ -1,5 +1,5 @@
 resource "aws_launch_configuration" "app_lc" {
-  name          = "app-lc"
+  name          = "autoscaling_template"
   image_id      = var.ami_id
   instance_type = var.instance_type
   associate_public_ip_address = true
