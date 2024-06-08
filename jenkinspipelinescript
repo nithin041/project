@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/nithin041/project.git'
+            }
+        }
+        stage('List Workspace') {
+            steps {
+                sh 'ls -la'
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                dir('projectfiles') {
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                dir('projectfiles') {
+                    sh 'terraform plan'
+                }
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                dir('projectfiles') {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+}
